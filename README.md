@@ -3,9 +3,13 @@
 Joe's Dotfile Manager. Simple dotfile manager written in python that keeps all dotfiles and backups of them in one place.
 
 
-# Build from source
+# Installation
 
-Download the jdfm file, put it in your PATH, and make it executable
+Download the `jdfm` file via curl, put it in your PATH (`~/bin` in my case), and make it executable
+
+`curl "https://raw.githubusercontent.com/joeysnclr/jdfm/master/jdfm" --output ~/bin/jdfm`
+
+`chmod +x ~/bin/jdfm`
 
 
 # Usage
