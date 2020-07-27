@@ -11,6 +11,13 @@ Download the `jdfm` file via curl, put it in your PATH (`~/bin` in my case), and
 
 `chmod +x ~/bin/jdfm`
 
+# Uninstall
+
+Remove the jdfm script, remove jdfm directory
+
+`rm ~/bin/jdfm`
+
+`rm -rf ~/jdfm`
 
 # Usage
 
