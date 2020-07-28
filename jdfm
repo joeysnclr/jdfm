@@ -106,33 +106,32 @@ def update():
             print("updated {} at {}".format(file, sysVersion))
 
 
-if __name__ == "__main__":
-    args = sys.argv
-    if "jdfm" in args:
-        args.remove("jdfm")
-    if len(args) == 0:
-        help()
-        quit()
-    command = args[0]
-    print(args)
-    print(command)
-    if command == "help":
-        help()
-    elif command == "init":
-        init()
-    elif command == "add":
-        if len(args) < 2:
-            print("please enter a file name to add")
-        else:
-            paths = args[1:]
-            for path in paths:
-                add(path)
-    elif command == "remove":
-        if len(args) < 2:
-            print("please enter a file name to remove")
-        else:
-            fileNames = args[1:]
-            for fileName in fileNames:
-                remove(fileName)
-    elif command == "update":
-        update()
+args = sys.argv
+if "jdfm" in args:
+    args.remove("jdfm")
+if len(args) == 0:
+    help()
+    quit()
+command = args[0]
+print(args)
+print(command)
+if command == "help":
+    help()
+elif command == "init":
+    init()
+elif command == "add":
+    if len(args) < 2:
+        print("please enter a file name to add")
+    else:
+        paths = args[1:]
+        for path in paths:
+            add(path)
+elif command == "remove":
+    if len(args) < 2:
+        print("please enter a file name to remove")
+    else:
+        fileNames = args[1:]
+        for fileName in fileNames:
+            remove(fileName)
+elif command == "update":
+    update()
