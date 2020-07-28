@@ -107,7 +107,6 @@ def update():
 
 
 if __name__ == "__main__":
-
     args = sys.argv
     if "jdfm" in args:
         args.remove("jdfm")
@@ -115,6 +114,8 @@ if __name__ == "__main__":
         help()
         quit()
     command = args[0]
+    print(args)
+    print(command)
     if command == "help":
         help()
     elif command == "init":
