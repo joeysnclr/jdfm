@@ -111,8 +111,6 @@ if len(args) == 0:
     help()
     quit()
 command = args[0]
-print(args)
-print(command)
 if command == "help":
     help()
 elif command == "init":
