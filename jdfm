@@ -45,7 +45,10 @@ def help():
 
 
 def init():
-    os.mkdir(jdfmDir)
+    try:
+        os.mkdir(jdfmDir)
+    except:
+        print("~/dfm already exists, creating empty config, run jdfm update to add files in ~/dfm already")
     config = {"dotfiles": {}}
     writeConfig(config)
     print("initialized jdfm at ~/dfm")
