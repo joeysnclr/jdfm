@@ -47,9 +47,39 @@ def help():
 def init():
     os.mkdir(jdfmDir)
     config = {"dotfiles": {}}
-    with open(configFile, "w") as file:
-        json.dump(config, file)
+    writeConfig(config)
     print("initialized jdfm at ~/dfm")
+
+
+def getUntrackedFiles():
+    config = getConfig()
+    ignoreFiles = ['.jdfm.json', '.gitignore']
+    files = [f for f in os.listdir(jdfmDir) if os.path.isfile(
+        os.path.join(jdfmDir, f))]
+    untrackedFiles = []
+    for file in files:
+        if file not in ignoreFiles and file not in config['dotfiles']:
+            untrackedFiles.append(file)
+    return untrackedFiles
+
+
+def addUnlinkedFile(fileName, path):
+    # verify path
+    if path.startswith("~"):
+        path = os.path.abspath(os.path.expanduser(path))
+    else:
+        path = os.path.abspath(path)
+    if not os.path.isfile(path):
+        print("{} has been created".format(path))
+        with open(path, 'w') as fp:
+            pass
+    # copy file in ~/dfm to path
+    shutil.copy(os.path.join(jdfmDir, fileName), path)
+    # add path
+    config = getConfig()
+    config['dotfiles'][fileName] = path
+    writeConfig(config)
+    print("added {} to jdfm (~/dfm) as {}!".format(path, fileName))
 
 
 def add(path, alias=None):
@@ -61,7 +91,8 @@ def add(path, alias=None):
     # check if path is a file
     if not os.path.isfile(path):
         print("{} is not a file".format(path))
-        return
+        with open(path, 'w') as fp:
+            pass
 
     # get base filename and create its destination in the ~/dfm directory
     if alias == None:
@@ -113,6 +144,11 @@ def update():
         if not filesAreSame:
             shutil.copy(jdfmVersion, sysVersion)
             print("updated {} at {}".format(file, sysVersion))
+    untrackedFiles = getUntrackedFiles()
+    for f in untrackedFiles:
+        print(f"{f} is an untracked file")
+        path = input(f"Path to {f} >> ")
+        addUnlinkedFile(f, path)
 
 
 args = sys.argv[1:]
